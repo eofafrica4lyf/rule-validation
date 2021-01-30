@@ -27,10 +27,15 @@ exports.personalInfo = catchAsyncError( async(req, res, next) => (
  * @access
  */
 exports.validateRule = catchAsyncError( async(req, res, next) => {
-    const data = Validation.validatePayload(req.body);
+    Validation.validatePayload(req.body);
+    const data = Validation.performEvaluation(req.body);
     return res.status(200).json({
-        message: data.validation.error ? `field ${data.validation.field} failed validation` : `field ${data.validation.field} successfully validated.`,
-        status: data.validation.error ? "error" :"success",
+        message: data.validation.error ? 
+            `field ${data.validation.field} failed validation` : 
+            `field ${data.validation.field} successfully validated.`,
+        status: data.validation.error ? 
+            "error" :
+            "success",
         data
     });
 })

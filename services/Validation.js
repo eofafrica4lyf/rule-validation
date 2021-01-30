@@ -6,9 +6,10 @@ class Validation {
      * @param {*} data 
      */
     static validatePayload (data) {
+        //validate the rule and data properties of the payload
         this.verifyPayloadDataType(data)
+        //validate required fields on the payload
         this.verifyRequiredFields(data)
-        return this.performValidation(data)
     }
 
     /**
@@ -66,10 +67,10 @@ class Validation {
     }
 
     /**
-     * Validate the the data passed into the API is valid
+     * Perform the rule validation evaluation on the data
      * @param {*} data
      */
-    static performValidation (data) {
+    static performEvaluation (data) {
         const field = this.checkIfFieldExists(data);
         if(!field){
             throw new ErrorHandler(`field ${data.rule.field} is missing from the data.`)
