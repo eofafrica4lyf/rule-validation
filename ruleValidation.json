@@ -1,0 +1,111 @@
+{
+    "swagger": "2.0",
+    "info": {
+            "description": "Simple Rule Validation API documentation",
+            "version": "1.0.0",
+            "title": "Simple Rule Validation API Doc",
+            "contact": {
+            "email": "aboderinemmanuel@gmail.com"
+        }
+    },
+    "tags": [
+        {
+            "name": "info",
+            "description": "Everything about personal info"
+        },
+        {
+            "name": "validation",
+            "description": "Everything about rule validation"
+        }
+    ],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/": {
+            "get": {
+            "tags": ["info"],
+            "summary": "Get personal info",
+            "description": "Get personal Info",
+            "produces": ["application/json"],
+            "responses": {
+                "200": {
+                "description": "{ success: true, data: [] } "
+                },
+                "500": {
+                "description": "Internal Server Error."
+                }
+            }
+            }
+        },
+        "/validate-rule": {
+            "post": {
+            "tags": ["validation"],
+            "summary": "Get personal info",
+            "description": "Get personal Info",
+            "produces": ["application/json"],
+            "parameters": [
+                {
+                    "name": "body",
+                    "in": "body",
+                    "description": "Input your data",
+                    "required": true,
+                    "type": "object",
+                    "schema": {
+                    "$ref": "#/definitions/inputData"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                "description": "{ success: true, data: [] } "
+                },
+                "500": {
+                "description": "Internal Server Error."
+                }
+            }
+            }
+        }
+    },
+    "definitions": {
+        "inputData": {
+            "required": ["rule", "data"],
+            "properties": {
+                "rule": {
+                    "type": "object",
+                    "description": "Must be an object containing the field, condition and condition_value properties.",
+                    "properties": {
+                        "field": {
+                            "type": "string",
+                            "required": true,
+                            "example": "missions"
+                        },
+                        "condition": {
+                            "type": "string",
+                            "required": true,
+                            "example": "gte"
+                        },
+                        "condition_value": {
+                            "type": "string",
+                            "required": true,
+                            "example": 30
+                        }
+                    }
+                },
+                "data": {
+                    "description": "Can be any value - string, object or array.",
+                    "anyOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "array"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
